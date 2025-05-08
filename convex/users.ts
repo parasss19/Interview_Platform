@@ -51,6 +51,11 @@ export const getUserByClerkId = query({
 
     //Function implementation.
     handler: async(ctx, args) => {
+      const identity = await ctx.auth.getUserIdentity();
+      if(!identity || identity.subject !== args.clerkId) {
+        throw new Error("Unauthorized");
+      }
+    
       const user = await ctx.db.query("users").withIndex("by_clerk_id", (q) => q.eq("clerkId", args.clerkId)).first();
       
       if(!user){
