@@ -4,6 +4,8 @@ import "./globals.css";
 import ConvexClerkProvider from "@/components/providers/ConvexClerkProvider";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+import LandingPage from "@/components/LandingPage";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,7 +40,17 @@ export default function RootLayout({
           >
             <div className="min-h-screen">
               <Navbar/>
-              <main className="px-4 sm:px-6 lg:px-8">{children}</main>
+              
+              {/* Show home page if signed in */}
+              <SignedIn>
+               <main className="px-4 sm:px-6 lg:px-8">{children}</main>
+              </SignedIn>
+
+              {/* Show landing page if signed out */}
+              <SignedOut>
+                <LandingPage />
+              </SignedOut>
+              
             </div>
           </ThemeProvider>
         </body>
