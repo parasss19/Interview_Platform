@@ -6,13 +6,13 @@ import { api } from "../../convex/_generated/api";
 export const useRole = () => {
    const {user} = useUser();   
    
-   //fetch the user using clerkId through our defined query(getUserByClerkId) in convex/users 
+   //fetch the user from "users" table using clerkId through our defined query(getUserByClerkId) in convex/users 
    const userData = useQuery(api.users.getUserByClerkId, {
     clerkId : user?.id || "", 
    })
 
    //if user is neither candidate nor interviewer
-   const isLoading = userData === undefined
+   const isLoading = userData === undefined ? true : false;
 
    return {
     isLoading,
