@@ -12,7 +12,7 @@ function DashboardBtn() {
   
   return (
     <Link href={"/dashboard"}>
-      <Button variant="ghost" className="bg-green-400 hover:bg-green-500 font-semibold font-medium px-2">
+      <Button variant="ghost" className="bg-green-500 hover:bg-green-500 font-medium px-2">
         <SparklesIcon className='size-4'/> 
         Dashboard
       </Button>
