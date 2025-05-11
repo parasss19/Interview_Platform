@@ -10,7 +10,7 @@ function Navbar() {
         <div className="flex h-16 items-center px-4 mx-auto">
           {/* logo */}
           <Link href="/" className="mr-6 hover:opacity-80 transition-opacity">
-            <img src="/logo.png" alt="logo-icon" className="w-28 "/>
+            <img src="/logo.png" alt="logo-icon" className="w-24 h-8"/>
           </Link>
 
           {/* right side */}

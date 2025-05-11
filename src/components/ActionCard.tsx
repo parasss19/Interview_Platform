@@ -11,10 +11,9 @@ type ActionCardProps = {
 const ActionCard = ({action, onClick} : ActionCardProps) => {
   return (
     <Card 
-      className = "group mt-6 cursor-pointer transition-transform duration-300 ease-in-out hover:scale-[1.02] border-blue-600"
+      className = "group mt-6 rounded-lg bg-gradient-to-br from-primary/10 via-primary/5 to-transparent cursor-pointer transition-transform duration-300 ease-in-out hover:scale-[1.02] border"
       onClick={onClick}
     >
-      <CardContent className={`p-0 ${action.gradient}`}>
       {/* Action content wrapper */}
       <div className="py-6 px-5">
 
@@ -30,7 +29,6 @@ const ActionCard = ({action, onClick} : ActionCardProps) => {
         </div>
 
       </div>
-      </CardContent>
     </Card>
   )
 }
