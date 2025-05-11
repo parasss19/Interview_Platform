@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react";
-import { Dialog, DialogHeader } from "./ui/dialog";
-import { DialogContent, DialogTitle } from "./ui/dialog";
+import { DialogContent, DialogTitle, Dialog, DialogHeader } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import useMeeting from "@/hooks/useMeeting";
 
 interface MeetingModalpropType {
     isOpen: boolean;
@@ -14,15 +14,23 @@ interface MeetingModalpropType {
 }
 const MeetingModal = ({isOpen, onClose, title, isJoinMeeting} : MeetingModalpropType ) => {
   const [meetingUrl, setMeetingUrl] = useState("");   //track state for meeting url
+  const {createMeeting, joinMeeting} = useMeeting();
 
-  const createMeeting = () => {
-
-  }  
-
-  const handleStartMeet = () => {
-   
+  const clickHandler = () => {
+    //user paste meeting url while joining meet
+    if(isJoinMeeting){
+      const meetingId = meetingUrl.split("/").pop();  //extract the url from input
+      if(meetingId){
+        return joinMeeting(meetingId);
+      }
+    }
+    else{
+      createMeeting();
+    }
+    setMeetingUrl("");
+    onClose(); 
   }
-
+ 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="">
@@ -50,8 +58,8 @@ const MeetingModal = ({isOpen, onClose, title, isJoinMeeting} : MeetingModalprop
               </Button>
 
               <Button 
-                onClick={handleStartMeet} 
-                disabled={isJoinMeeting && !meetingUrl.trim()}
+                onClick={clickHandler} 
+                disabled={isJoinMeeting && !meetingUrl.trim()}    //if user dont write any url in input than Join btn is disabled
                 className="bg-emerald-600 hover:bg-emerald-600"
               >
                 {isJoinMeeting ? "Join Meeting" : "Start Meeting"}
