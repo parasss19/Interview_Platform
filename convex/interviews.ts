@@ -60,13 +60,19 @@ export const getAllInterviews = query({
 //get my interviews
 export const getMyInterviews = query({
     handler: async(ctx) => {
-        //current authenticated user dont have interviews
-        const identity = await ctx.auth.getUserIdentity();
-        if(!identity) return [];    //no interviews
+    //current authenticated user dont have interviews
+    const identity = await ctx.auth.getUserIdentity();
+    if(!identity) return [];    //no interviews
 
-        //if current authenticated user have interviews
-        const interviews = await ctx.db.query("interviews").withIndex("by_candidate_id", (q) => q.eq("candidateId", identity.subject)).collect();
-        return interviews;
+    // Step 1: Fetch user from "users" table using clerkId
+    const user = await ctx.db.query("users").withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject)).unique();
+
+    if (!user) return [];
+
+    // Step 2: Use the Convex user ID to fetch interviews
+    const interviews = await ctx.db.query("interviews").withIndex("by_candidate_id", (q) => q.eq("candidateId", user._id)).collect();     
+         
+    return interviews;
     }
 })
 

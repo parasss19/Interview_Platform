@@ -20,7 +20,7 @@ const MeetingModal = ({isOpen, onClose, title, isJoinMeeting} : MeetingModalprop
   }  
 
   const handleStartMeet = () => {
-
+   
   }
 
   return (
