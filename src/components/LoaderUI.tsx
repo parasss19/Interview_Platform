@@ -2,7 +2,7 @@ import {HashLoader} from "react-spinners"
 
 const LoaderUI = () => {
   return (
-    <div className='flex items-center justify-center mt-14'>
+    <div className='h-screen flex items-center justify-center'>
       <HashLoader color="white" size={100} />
     </div>
   )
