@@ -136,7 +136,7 @@ export const MeetingSetup = ({onSetupComplete}: {onSetupComplete: () => void}) =
 
               {/* Join meeting btn */}
               <Button 
-                className="w-full mt-12 md:mt-40"
+                className="w-full mt-12 md:mt-40 cursor-pointer"
                 onClick={handleJoin}
               >
                Join Meeting
