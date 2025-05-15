@@ -75,6 +75,18 @@ export type QuickActionType = (typeof QUICK_ACTIONS)[number];
 // QUICK_ACTIONS[0]
 
 
+export interface CodeQuestion {
+  id: string;
+  title: string;
+  description: string;
+  examples: Array<{
+    input: string;
+    output: string;
+    explanation?: string;
+  }>;
+  constraints?: string[];
+}
+
 export const CODING_QUESTIONS: CodeQuestion[] = [
   {
     id: "two-sum",
@@ -91,22 +103,8 @@ export const CODING_QUESTIONS: CodeQuestion[] = [
         input: "nums = [3,2,4], target = 6",
         output: "[1,2]",
       },
+      
     ],
-    starterCode: {
-      javascript: `function twoSum(nums, target) {
-  // Write your solution here
-  
-}`,
-      python: `def two_sum(nums, target):
-    # Write your solution here
-    pass`,
-      java: `class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        // Write your solution here
-        
-    }
-}`,
-    },
     constraints: [
       "2 ≤ nums.length ≤ 104",
       "-109 ≤ nums[i] ≤ 109",
@@ -129,21 +127,6 @@ export const CODING_QUESTIONS: CodeQuestion[] = [
         output: '["h","a","n","n","a","H"]',
       },
     ],
-    starterCode: {
-      javascript: `function reverseString(s) {
-  // Write your solution here
-  
-}`,
-      python: `def reverse_string(s):
-    # Write your solution here
-    pass`,
-      java: `class Solution {
-    public void reverseString(char[] s) {
-        // Write your solution here
-        
-    }
-}`,
-    },
   },
   {
     id: "palindrome-number",
@@ -163,44 +146,21 @@ export const CODING_QUESTIONS: CodeQuestion[] = [
           "From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.",
       },
     ],
-    starterCode: {
-      javascript: `function isPalindrome(x) {
-  // Write your solution here
-  
-}`,
-      python: `def is_palindrome(x):
-    # Write your solution here
-    pass`,
-      java: `class Solution {
-    public boolean isPalindrome(int x) {
-        // Write your solution here
-        
-    }
-}`,
-    },
   },
 ];
 
 export const LANGUAGES = [
-  { id: "javascript", name: "JavaScript", icon: "/javascript.png" },
-  { id: "python", name: "Python", icon: "/python.png" },
-  { id: "java", name: "Java", icon: "/java.png" },
+  { id: "cpp", name: "C++", icon: "/Cpp.png" },
+  { id: "javascript", name: "JavaScript", icon: "/JavaScript.png" },
+  { id: "python", name: "Python", icon: "/Python.png" },
+  { id: "java", name: "Java", icon: "/Java.png" },
 ] as const;
 
-export interface CodeQuestion {
-  id: string;
-  title: string;
-  description: string;
-  examples: Array<{
-    input: string;
-    output: string;
-    explanation?: string;
-  }>;
-  starterCode: {
-    javascript: string;
-    python: string;
-    java: string;
-  };
-  constraints?: string[];
-}
+export type LanguageId = "cpp" | "javascript" | "python" | "java";
 
+export const starterCodeMap: Record<LanguageId, string> = {
+  javascript: `// write your JavaScript code here`,
+  python: `# write your Python code here`,
+  cpp: `// write your C++ code here`,
+  java: `// write your Java code here`,
+};
