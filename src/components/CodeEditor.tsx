@@ -152,9 +152,8 @@ const CodeEditor = () => {
 
 
         {/* code Editor + output(side by side) */}
-        <ResizablePanel>
-          <ResizablePanelGroup direction="horizontal">
-            {/* code part */}
+
+          {/* code part */}
             <ResizablePanel defaultSize={70} minSize={30}>
               <div className="h-full ">
                 <Editor
@@ -179,15 +178,6 @@ const CodeEditor = () => {
               </div>
             </ResizablePanel>
 
-            <ResizableHandle withHandle />
-
-            {/* Output part */}
-            <ResizablePanel minSize={10}>
-              Output part
-            </ResizablePanel>
-          </ResizablePanelGroup>
-        </ResizablePanel>
-       
     </ResizablePanelGroup>
   )
 }
