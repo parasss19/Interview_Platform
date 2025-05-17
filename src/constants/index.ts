@@ -76,7 +76,6 @@ export type QuickActionType = (typeof QUICK_ACTIONS)[number];
 
 
 export interface CodeQuestion {
-  id: string;
   title: string;
   description: string;
   examples: Array<{
@@ -87,64 +86,29 @@ export interface CodeQuestion {
   constraints?: string[];
 }
 
+//testing que render on intial render
 export const CODING_QUESTIONS: CodeQuestion[] = [
   {
-    id: "two-sum",
-    title: "Two Sum",
+    title: "Test Question",
     description:
-      "Given an array of integers `nums` and an integer `target`, return indices of the two numbers in the array such that they add up to `target`.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.",
+      "Question will be provided shortly",
     examples: [
       {
-        input: "nums = [2,7,11,15], target = 9",
-        output: "[0,1]",
-        explanation: "Because nums[0] + nums[1] == 9, we return [0, 1]",
+        input: "Test input",
+        output: "Test output",
+        explanation: "Test",
       },
       {
-        input: "nums = [3,2,4], target = 6",
-        output: "[1,2]",
-      },
-      
+        input: "Test input",
+        output: "Test output",
+        explanation: "Test",
+      },  
     ],
     constraints: [
-      "2 ≤ nums.length ≤ 104",
-      "-109 ≤ nums[i] ≤ 109",
-      "-109 ≤ target ≤ 109",
-      "Only one valid answer exists.",
-    ],
-  },
-  {
-    id: "reverse-string",
-    title: "Reverse String",
-    description:
-      "Write a function that reverses a string. The input string is given as an array of characters `s`.\n\nYou must do this by modifying the input array in-place with O(1) extra memory.",
-    examples: [
-      {
-        input: 's = ["h","e","l","l","o"]',
-        output: '["o","l","l","e","h"]',
-      },
-      {
-        input: 's = ["H","a","n","n","a","h"]',
-        output: '["h","a","n","n","a","H"]',
-      },
-    ],
-  },
-  {
-    id: "palindrome-number",
-    title: "Palindrome Number",
-    description:
-      "Given an integer `x`, return `true` if `x` is a palindrome, and `false` otherwise.\n\nAn integer is a palindrome when it reads the same forward and backward.",
-    examples: [
-      {
-        input: "x = 121",
-        output: "true",
-        explanation: "121 reads as 121 from left to right and from right to left.",
-      },
-      {
-        input: "x = -121",
-        output: "false",
-        explanation:
-          "From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.",
-      },
+      "constraint 1",
+      "constraint 2",
+      "constraint 3",
+      "constraint 4",
     ],
   },
 ];
