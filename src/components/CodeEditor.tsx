@@ -1,6 +1,6 @@
 "use client"
 
-import { CODING_QUESTIONS, LanguageId, LANGUAGES, starterCodeMap } from "@/constants"
+import { CodeQuestion, CODING_QUESTIONS, LanguageId, LANGUAGES, starterCodeMap } from "@/constants"
 import { useEffect, useState } from "react"
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./ui/resizable";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
@@ -9,16 +9,26 @@ import { AlertCircleIcon, BookIcon, LightbulbIcon } from "lucide-react";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import Editor from "@monaco-editor/react";
 
-const CodeEditor = () => {
-  const [selectedQuestion, setSelectedQuestion] = useState(CODING_QUESTIONS[0]);
+type CodeEditorProp = {
+  codingQuestion: CodeQuestion[]
+}
+
+const CodeEditor = ({codingQuestion}: CodeEditorProp) => {
+  const [selectedQuestion, setSelectedQuestion] = useState<CodeQuestion>(CODING_QUESTIONS[0]);
   const [language, setLanguage] = useState<LanguageId>(LANGUAGES[0].id);
   const [code, setCode] = useState("");
 
   //update question  
-  const handleQuestionChange = (questionId: string) => {
-    const ques = CODING_QUESTIONS.find((que) => que.id === questionId)!;
+  const handleQuestionChange = (questionTitle: string) => {
+    const ques = codingQuestion.find((que) => que.title === questionTitle)!;
     setSelectedQuestion(ques);
   }
+
+  useEffect(() => {
+    if(codingQuestion.length > 0){
+      setSelectedQuestion(codingQuestion[0]);
+    }
+  },[codingQuestion])
 
   //update starter code code when language changes
   const handleLanguageChange = (newLanguage: LanguageId) => {
@@ -47,17 +57,26 @@ const CodeEditor = () => {
                 {/* Select question and Language */}
                 <div className="flex items-center gap-3"> 
                   {/* Select Question */}
-                  <Select value={selectedQuestion.id} onValueChange={handleQuestionChange}>
+                  <Select value={selectedQuestion?.title} onValueChange={handleQuestionChange}>
                     <SelectTrigger className="w-fit p-2 ">
-                      <SelectValue />
+                      <SelectValue/>
                     </SelectTrigger>
 
                     <SelectContent>
-                      {CODING_QUESTIONS.map((que) => (
-                        <SelectItem key={que.id} value={que.id}>
-                          {que.title}
-                        </SelectItem>
-                      ))}
+                      {codingQuestion.length === 0 
+                       ? 
+                        ( CODING_QUESTIONS.map((que) => (
+                            <SelectItem key={que.title} value={que.title}>
+                              {que.title}
+                            </SelectItem>
+                        )))
+                       : (
+                        codingQuestion.map((que) => (
+                          <SelectItem key={que.title} value={que.title}>
+                            {que.title}
+                          </SelectItem>
+                        ))
+                       )}
                     </SelectContent>
                   </Select>
                
@@ -150,34 +169,30 @@ const CodeEditor = () => {
         {/* Resizable handle */}
         <ResizableHandle withHandle/>
 
-
-        {/* code Editor + output(side by side) */}
-
-          {/* code part */}
-            <ResizablePanel defaultSize={70} minSize={30}>
-              <div className="h-full ">
-                <Editor
-                  height={"100%"}
-
-                  defaultLanguage={language}
-                  language={language}
-                  theme="vs-dark"
-                  value={code}
-                  onChange={(value) => setCode(value || "")}
-                  options={{
-                    minimap: { enabled:true },
-                    fontSize: 16,
-                    lineNumbers: "on",
-                    scrollBeyondLastLine: false,
-                    automaticLayout: true,
-                    padding: { top: 16, bottom: 16 },
-                    wordWrap: "on",
-                    wrappingIndent: "indent",
-                  }}
-                />
-              </div>
-            </ResizablePanel>
-
+        {/* code part */}
+         <ResizablePanel defaultSize={70} minSize={30}>
+            <div className="h-full ">
+              <Editor
+                height={"100%"}
+                defaultLanguage={language}
+                language={language}
+                theme="vs-dark"
+                value={code}
+                onChange={(value) => setCode(value || "")}
+                options={{
+                  minimap: { enabled:true },
+                  fontSize: 16,
+                  lineNumbers: "on",
+                  scrollBeyondLastLine: false,
+                  automaticLayout: true,
+                  padding: { top: 16, bottom: 16 },
+                  wordWrap: "on",
+                  wrappingIndent: "indent",
+                }}
+              />
+            </div>
+          </ResizablePanel>
+          
     </ResizablePanelGroup>
   )
 }
